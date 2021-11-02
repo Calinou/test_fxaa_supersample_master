@@ -1,0 +1,165 @@
+[gd_scene load_steps=21 format=3 uid="uid://ctpuic7ecnxjk"]
+
+[ext_resource type="Texture2D" uid="uid://ce87x5et7bg7t" path="res://cc0textures/Tiles074_2K_Roughness.jpg" id="1"]
+[ext_resource type="Texture2D" uid="uid://eqrp5a4aiff4" path="res://cc0textures/Tiles074_2K_Normal.jpg" id="2"]
+[ext_resource type="Texture2D" uid="uid://dcm18b5g0cufb" path="res://cc0textures/Tiles074_2K_Color.jpg" id="3"]
+[ext_resource type="Texture2D" uid="uid://cd0ow3navwsh0" path="res://cc0textures/Tiles086_2K_Color.jpg" id="5"]
+[ext_resource type="Texture2D" uid="uid://b3v3eubgnr0l1" path="res://cc0textures/Tiles086_2K_Roughness.jpg" id="6"]
+[ext_resource type="Texture2D" uid="uid://dhr6pd7ey4t5m" path="res://cc0textures/Tiles086_2K_Normal.jpg" id="7"]
+[ext_resource type="Texture2D" uid="uid://cafty2ugk221" path="res://cc0textures/WoodFloor041_2K_AmbientOcclusion.jpg" id="8"]
+[ext_resource type="Texture2D" uid="uid://d4gnyqajqbp3s" path="res://cc0textures/WoodFloor041_2K_Color.jpg" id="9"]
+[ext_resource type="Texture2D" uid="uid://bf5vs8unr3tmi" path="res://cc0textures/WoodFloor041_2K_Normal.jpg" id="10"]
+[ext_resource type="Texture2D" uid="uid://ca530dmq31sqi" path="res://cc0textures/WoodFloor041_2K_Roughness.jpg" id="11"]
+[ext_resource type="Script" path="res://test.gd" id="12"]
+
+[sub_resource type="PlaneMesh" id="1"]
+size = Vector2(16, 16)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w28mo"]
+albedo_texture = ExtResource( "3" )
+roughness_texture = ExtResource( "1" )
+normal_enabled = true
+normal_texture = ExtResource( "2" )
+uv1_scale = Vector3(4, 4, 1)
+texture_filter = 5
+
+[sub_resource type="BoxMesh" id="3"]
+size = Vector3(8, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3w1uo"]
+albedo_texture = ExtResource( "5" )
+roughness_texture = ExtResource( "6" )
+normal_enabled = true
+normal_texture = ExtResource( "7" )
+uv1_scale = Vector3(8, 2, 1)
+texture_filter = 5
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_lxie5"]
+
+[sub_resource type="Sky" id="10"]
+sky_material = SubResource( "PhysicalSkyMaterial_lxie5" )
+
+[sub_resource type="Environment" id="7"]
+background_mode = 2
+sky = SubResource( "10" )
+ambient_light_sky_contribution = 0.5
+tonemap_mode = 2
+tonemap_white = 6.0
+glow_enabled = true
+glow_intensity = 0.3
+glow_blend_mode = 1
+
+[sub_resource type="PlaneMesh" id="8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xhbea"]
+albedo_texture = ExtResource( "9" )
+roughness_texture = ExtResource( "11" )
+normal_enabled = true
+normal_texture = ExtResource( "10" )
+ao_enabled = true
+ao_texture = ExtResource( "8" )
+texture_filter = 5
+
+[node name="Spatial" type="Node3D"]
+script = ExtResource( "12" )
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource( "1" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_w28mo" )
+script = null
+
+[node name="MeshInstance2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.333)
+mesh = SubResource( "3" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_3w1uo" )
+script = null
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(0.112253, 0.498406, -0.859645, 0, 0.865113, 0.501576, 0.993679, -0.0563036, 0.0971118, -5.49441, 2.89589, 1.70983)
+script = null
+
+[node name="DirectionalLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.69596, -0.50066, 0.514762, 0, 0.716857, 0.69722, -0.718081, -0.485237, 0.498904, 5.25747, 1.66688, 2.81717)
+shadow_enabled = true
+script = null
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( "7" )
+script = null
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 2.01, 0.333)
+mesh = SubResource( "8" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_xhbea" )
+script = null
+
+[node name="MeshInstance3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 2.01, 0.333)
+mesh = SubResource( "8" )
+surface_material_override/0 = SubResource( "StandardMaterial3D_xhbea" )
+script = null
+
+[node name="Info" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -346.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 190.0
+theme_override_constants/line_spacing = 6
+text = "F1: Toggle this panel
+F2: Decrease MSAA
+F3: Increase MSAA
+F4: Toggle FXAA
+Up/Down arrows: Adjust render scale
+Space: Toggle camera animation"
+align = 2
+script = null
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 129.0
+offset_bottom = 102.0
+script = null
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPS" type="Label" parent="VBoxContainer"]
+offset_right = 127.0
+offset_bottom = 23.0
+script = null
+
+[node name="RenderScale" type="Label" parent="VBoxContainer"]
+offset_top = 27.0
+offset_right = 127.0
+offset_bottom = 53.0
+text = "Render scale: 1.0"
+script = null
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MSAA" type="Label" parent="VBoxContainer"]
+offset_top = 57.0
+offset_right = 127.0
+offset_bottom = 83.0
+text = "MSAA: 0"
+script = null
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FXAA" type="Label" parent="VBoxContainer"]
+offset_top = 87.0
+offset_right = 127.0
+offset_bottom = 113.0
+text = "FXAA: Disabled"
+script = null
+__meta__ = {
+"_edit_use_anchors_": false
+}
