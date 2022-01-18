@@ -19,12 +19,12 @@ func _input(event: InputEvent) -> void:
 		$Info.visible = not $Info.visible
 
 	if event.is_action_pressed("increase_render_scale"):
-		get_viewport().scale_3d = clamp(get_viewport().scale_3d + 0.05, 0.25, 2.0)
-		$VBoxContainer/RenderScale.text = "Render scale: %.2f" % get_viewport().scale_3d
+		get_viewport().scaling_3d_scale = clamp(get_viewport().scaling_3d_scale + 0.05, 0.25, 2.0)
+		$VBoxContainer/RenderScale.text = "Render scale: %.2f" % get_viewport().scaling_3d_scale
 
 	if event.is_action_pressed("decrease_render_scale"):
-		get_viewport().scale_3d = clamp(get_viewport().scale_3d - 0.05, 0.25, 2.0)
-		$VBoxContainer/RenderScale.text = "Render scale: %.2f" % get_viewport().scale_3d
+		get_viewport().scaling_3d_scale = clamp(get_viewport().scaling_3d_scale - 0.05, 0.25, 2.0)
+		$VBoxContainer/RenderScale.text = "Render scale: %.2f" % get_viewport().scaling_3d_scale
 
 	if event.is_action_pressed("toggle_fxaa"):
 		get_viewport().screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED if get_viewport().screen_space_aa else Viewport.SCREEN_SPACE_AA_FXAA

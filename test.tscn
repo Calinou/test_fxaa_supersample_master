@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ctpuic7ecnxjk"]
+[gd_scene load_steps=22 format=3 uid="uid://ctpuic7ecnxjk"]
 
 [ext_resource type="Texture2D" uid="uid://ce87x5et7bg7t" path="res://cc0textures/Tiles074_2K_Roughness.jpg" id="1"]
 [ext_resource type="Texture2D" uid="uid://eqrp5a4aiff4" path="res://cc0textures/Tiles074_2K_Normal.jpg" id="2"]
@@ -34,6 +34,13 @@ normal_texture = ExtResource( "7" )
 uv1_scale = Vector3(8, 2, 1)
 texture_filter = 5
 
+[sub_resource type="CameraEffects" id="CameraEffects_gm5ov"]
+dof_blur_far_enabled = true
+dof_blur_near_enabled = true
+dof_blur_near_distance = 5.0
+dof_blur_near_transition = 2.5
+dof_blur_amount = 0.2
+
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_lxie5"]
 
 [sub_resource type="Sky" id="10"]
@@ -45,6 +52,8 @@ sky = SubResource( "10" )
 ambient_light_sky_contribution = 0.5
 tonemap_mode = 2
 tonemap_white = 6.0
+sdfgi_read_sky_light = true
+sdfgi_bounce_feedback = 0.5
 glow_enabled = true
 glow_intensity = 0.3
 glow_blend_mode = 1
@@ -64,40 +73,38 @@ texture_filter = 5
 script = ExtResource( "12" )
 
 [node name="Ground" type="MeshInstance3D" parent="."]
+gi_mode = 1
 mesh = SubResource( "1" )
 surface_material_override/0 = SubResource( "StandardMaterial3D_w28mo" )
-script = null
 
 [node name="MeshInstance2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.333)
+gi_mode = 1
 mesh = SubResource( "3" )
 surface_material_override/0 = SubResource( "StandardMaterial3D_3w1uo" )
-script = null
 
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(0.112253, 0.498406, -0.859645, 0, 0.865113, 0.501576, 0.993679, -0.0563036, 0.0971118, -5.49441, 2.89589, 1.70983)
-script = null
+effects = SubResource( "CameraEffects_gm5ov" )
 
 [node name="DirectionalLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.69596, -0.50066, 0.514762, 0, 0.716857, 0.69722, -0.718081, -0.485237, 0.498904, 5.25747, 1.66688, 2.81717)
 shadow_enabled = true
-script = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( "7" )
-script = null
 
 [node name="MeshInstance" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 2.01, 0.333)
+gi_mode = 1
 mesh = SubResource( "8" )
 surface_material_override/0 = SubResource( "StandardMaterial3D_xhbea" )
-script = null
 
 [node name="MeshInstance3" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 2.01, 0.333)
+gi_mode = 1
 mesh = SubResource( "8" )
 surface_material_override/0 = SubResource( "StandardMaterial3D_xhbea" )
-script = null
 
 [node name="Info" type="Label" parent="."]
 anchor_left = 1.0
@@ -113,8 +120,6 @@ F3: Increase MSAA
 F4: Toggle FXAA
 Up/Down arrows: Adjust render scale
 Space: Toggle camera animation"
-align = 2
-script = null
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -124,7 +129,6 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 129.0
 offset_bottom = 102.0
-script = null
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -132,14 +136,12 @@ __meta__ = {
 [node name="FPS" type="Label" parent="VBoxContainer"]
 offset_right = 127.0
 offset_bottom = 23.0
-script = null
 
 [node name="RenderScale" type="Label" parent="VBoxContainer"]
 offset_top = 27.0
 offset_right = 127.0
 offset_bottom = 53.0
 text = "Render scale: 1.0"
-script = null
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -149,7 +151,6 @@ offset_top = 57.0
 offset_right = 127.0
 offset_bottom = 83.0
 text = "MSAA: 0"
-script = null
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -159,7 +160,6 @@ offset_top = 87.0
 offset_right = 127.0
 offset_bottom = 113.0
 text = "FXAA: Disabled"
-script = null
 __meta__ = {
 "_edit_use_anchors_": false
 }
